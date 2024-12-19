@@ -2,15 +2,9 @@
   <header>
     <img @click="scrollToTop" src="../assets/newphoto.jpg" alt="Logo" />
     <nav>
-      <a href="#about" :class="{ active: currentSection === 'about' }"
-        >À propos</a
-      >
-      <a href="#projects" :class="{ active: currentSection === 'projects' }"
-        >Projets</a
-      >
-      <a href="#contact" :class="{ active: currentSection === 'contact' }"
-        >Contact</a
-      >
+      <li><router-link to="/#about">À propos</router-link></li>
+      <li><router-link to="/#projects">Mes projets</router-link></li>
+      <li><router-link to="/#contact">Contact</router-link></li>
     </nav>
   </header>
 </template>
