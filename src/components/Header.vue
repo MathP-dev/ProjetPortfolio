@@ -81,7 +81,7 @@ nav li {
 
 nav a {
   text-decoration: none;
-  color: #333;
+  color: #a2ac19;
   position: relative;
   transition: color 0.3s ease;
 }
