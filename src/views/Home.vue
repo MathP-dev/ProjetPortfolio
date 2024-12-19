@@ -69,6 +69,7 @@ import ProjectModal from "./ProjectModal.vue";
 import cvImage from "@/assets/cv-img.jpg";
 import commentaireImage from "@/assets/dynamiser-img.jpg";
 import cahierChargesImage from "@/assets/cahier-charges-img.jpg";
+import cahierChargesTemplate from "@/assets/template CDC.pdf"
 import emailjs from "emailjs-com";
 
 const name = ref("Mathieu Paquier");
@@ -100,8 +101,9 @@ const projects = [
     id: 3,
     title: "Cahier des charges",
     image: cahierChargesImage,
-    technologies: ["Word"],
+    technologies: ["Word, Figma"],
     additionalImages: [cahierChargesImage],
+    link: [cahierChargesTemplate]
   },
 ];
 
