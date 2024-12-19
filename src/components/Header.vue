@@ -2,9 +2,15 @@
   <header>
     <img @click="scrollToTop" src="../assets/newphoto.jpg" alt="Logo" />
     <nav>
-      <li><router-link to="/#about">À propos</router-link></li>
-      <li><router-link to="/#projects">Mes projets</router-link></li>
-      <li><router-link to="/#contact">Contact</router-link></li>
+      <li :class="{ active: currentSection === 'about' }">
+        <router-link to="/#about">À propos</router-link>
+      </li>
+      <li :class="{ active: currentSection === 'projects' }">
+        <router-link to="/#projects">Mes projets</router-link>
+      </li>
+      <li :class="{ active: currentSection === 'contact' }">
+        <router-link to="/#contact">Contact</router-link>
+      </li>
     </nav>
   </header>
 </template>
@@ -22,7 +28,22 @@ export default {
     };
 
     const updateCurrentSection = () => {
-      // Logique pour mettre à jour la section actuelle si nécessaire
+      const sections = ["about", "projects", "contact"];
+      const scrollPosition = window.scrollY;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            currentSection.value = section;
+            break;
+          }
+        }
+      }
     };
 
     onMounted(() => {
@@ -47,14 +68,43 @@ header {
   padding: 1rem;
 }
 
-nav a {
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
-  text-decoration: none;
+nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-a:hover {
-  text-decoration: underline;
+nav li {
+  list-style-type: none;
+  margin: 0 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+
+nav li.active a {
+  color: #007bff;
+  font-weight: bold;
+}
+
+nav li.active a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #007bff;
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
 }
 
 img {
@@ -62,5 +112,11 @@ img {
   height: 250px;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
 }
 </style>
