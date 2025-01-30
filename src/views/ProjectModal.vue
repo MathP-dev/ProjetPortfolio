@@ -12,7 +12,7 @@
         <div class="image-gallery">
           <a
             v-for="(img, index) in project.additionalImages"
-            :key="'img-' + index"
+            :key="index"
             :href="img"
             target="_blank"
           >

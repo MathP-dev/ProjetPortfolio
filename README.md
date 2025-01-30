@@ -13,6 +13,7 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 ## Prérequis
 
 - Node.js (version 14.18+ ou 16+)
+- vueX 
 - Yarn
 
 ```sh

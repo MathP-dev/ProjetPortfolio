@@ -3,6 +3,7 @@
     <BurgerMenu />
     <Header />
     <router-view></router-view>
+    <router-link to="/admin" v-if="isAdmin">Admin</router-link>
     <Footer />
   </div>
 </template>
@@ -18,6 +19,11 @@ export default {
     Header,
     Footer,
     BurgerMenu,
+  },
+  data() {
+    return {
+      isAdmin: true,
+    };
   },
 };
 </script>

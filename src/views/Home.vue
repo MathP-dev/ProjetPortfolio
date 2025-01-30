@@ -12,7 +12,7 @@
         <div class="carousel-inner" :style="{ width: `${totalWidth}px` }">
           <!-- Dupliquer les projets pour l'effet de continuité -->
           <div
-            v-for="project in duplicatedProjects"
+            v-for="project in allProjects"
             :key="project.id"
             class="project-card"
             @click="openModal(project)"
@@ -65,6 +65,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useStore } from 'vuex';
 import ProjectModal from "./ProjectModal.vue";
 import cvImage from "@/assets/cv-img.jpg";
 import commentaireImage from "@/assets/dynamiser-img.jpg";
@@ -72,6 +73,7 @@ import cahierChargesImage from "@/assets/cahier-charges-img.jpg";
 import cahierChargesTemplate from "@/assets/template CDC.pdf"
 import emailjs from "emailjs-com";
 
+const store = useStore();
 const name = ref("Mathieu Paquier");
 const job = ref("Développeur junior");
 const shortBio = ref(
@@ -82,6 +84,7 @@ const projects = [
   {
     id: 1,
     title: "Mon CV",
+    date: "2024",
     image: cvImage,
     technologies: ["HTML", "CSS"],
     additionalImages: [cvImage],
@@ -91,6 +94,7 @@ const projects = [
   {
     id: 2,
     title: "Dynamiser un espace commentaire",
+    date: "2024",
     image: commentaireImage,
     technologies: ["JavaScript", "HTML", "CSS"],
     additionalImages: [commentaireImage],
@@ -100,6 +104,7 @@ const projects = [
   {
     id: 3,
     title: "Cahier des charges",
+    date: "2024",
     image: cahierChargesImage,
     technologies: ["Word, Figma"],
     additionalImages: [cahierChargesImage],
@@ -107,8 +112,9 @@ const projects = [
   },
 ];
 
+const dynamicProjects = computed(() => store.getters.allProjects);
+const allProjects = computed(() => [...projects, ...dynamicProjects.value, ...projects, ...dynamicProjects.value]); 
 // Dupliquer les projets pour l'effet de continuité
-const duplicatedProjects = [...projects, ...projects];
 
 const form = ref({ name: "", email: "", message: "" });
 const selectedProject = ref(null);
@@ -128,7 +134,7 @@ const scrollToTop = () => {
 };
 
 // Calculer la largeur totale du carrousel
-const totalWidth = computed(() => duplicatedProjects.length * 300);
+const totalWidth = computed(() => allProjects.length * 300);
 
 const nameForm = ref("");
 const subject = ref("");
